@@ -36,6 +36,41 @@ public class FoodAppMetrics {
 	}
 	
 	
-	public  String getMetricsofFoodApp() {		return null;
+	@GetMapping("/info")
+	public String getInfoDetialsOfFoodApp() throws JsonProcessingException {
+		String url = "http://localhost:8082/actuator/info";
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity entity = new HttpEntity(headers);
+		Object obj = restTemplate.exchange(url, HttpMethod.GET,entity , Object.class).getBody();
+		ObjectMapper om = new ObjectMapper();
+		return om.writeValueAsString(obj);
+//		HealthResponseDto priceDetails = new HealthResponseDto();
+//		return priceDetails;
 	}
+	
+	@GetMapping("/free-space")
+	public String getInformationDetialsOfFoodApp() throws JsonProcessingException {
+		String url = "http://localhost:8082/actuator/metrics/disk.free";
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity entity = new HttpEntity(headers);
+		Object obj = restTemplate.exchange(url, HttpMethod.GET,entity , Object.class).getBody();
+		ObjectMapper om = new ObjectMapper();
+		return om.writeValueAsString(obj);
+//		HealthResponseDto priceDetails = new HealthResponseDto();
+//		return priceDetails;
+}
+	@GetMapping("/disk.total")
+	public String getDiskDetialsOfFoodApp() throws JsonProcessingException {
+		String url = "http://localhost:8082/actuator/metrics/executor.active";
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		HttpEntity entity = new HttpEntity(headers);
+		Object obj = restTemplate.exchange(url, HttpMethod.GET,entity , Object.class).getBody();
+		ObjectMapper om = new ObjectMapper();
+		return om.writeValueAsString(obj);
+//		HealthResponseDto priceDetails = new HealthResponseDto();
+//		return priceDetails;
+}
 }
